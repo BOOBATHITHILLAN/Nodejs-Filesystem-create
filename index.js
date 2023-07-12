@@ -20,7 +20,7 @@ const { request } = require('http');
 
 //endpoint to create a text files
 
-app.post('/', (request, response) => {
+app.post('/create', (request, response) => {
 
     //Create Current Timestamp
     const CurrentTimeStamp = new Date().toLocaleString();
@@ -55,7 +55,7 @@ app.post('/', (request, response) => {
 
 
 //endpoint to filter and get text files
-app.get('/', (request, response) => {
+app.get('/get', (request, response) => {
 
     const textFileFolder = [];
     const files = fs.readdirSync('./FileFolder');

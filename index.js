@@ -1,15 +1,15 @@
 
 //Modules
 
-const fs=require('fs');
+const fs = require('fs');
 
-const express=require('express');
+const express = require('express');
 
-const app=express();
+const app = express();
 
 const cors = require('cors');
 
-const path=require('path');
+const path = require('path');
 
 app.use(cors())
 
@@ -20,57 +20,57 @@ const { request } = require('http');
 
 //endpoint to create a text files
 
-app.post('/',(request,response)=>{
-    
+app.post('/', (request, response) => {
+
     //Create Current Timestamp
-    const CurrentTimeStamp=new Date().toLocaleString();
+    const CurrentTimeStamp = new Date().toLocaleString();
 
     //txt File name create
-    const date=String(new Date()).split(" ");
-    const CurrentDate=date[2]+date[1]+date[3]
-    const CurrentTime=date[4]
-    const FileName=`${CurrentDate}-${CurrentTime.split(":").join("'")}`;
+    const date = String(new Date()).split(" ");
+    const CurrentDate = date[2] + date[1] + date[3]
+    const CurrentTime = date[4]
+    const FileName = `${CurrentDate}-${CurrentTime.split(":").join("'")}`;
 
     //Create text file =>> File name=current date-time and content=Current-date-time-details
-    const txtFile=`./FileFolder/${FileName}.txt`
+    const txtFile = `./FileFolder/${FileName}.txt`
 
-    try{
-        if(!fs.existsSync(txtFile)){
-    
-            fs.writeFile(`${txtFile}`,`${CurrentTimeStamp}`,err=>{
-                if(err){
+    try {
+        if (!fs.existsSync(txtFile)) {
+
+            fs.writeFile(`${txtFile}`, `${CurrentTimeStamp}`, err => {
+                if (err) {
                     console.error(err);
-                    return response.status(404).json({Message:"Text file creation failed"})
+                    return response.status(404).json({ Message: "Text file creation failed" })
                 }
-                return response.status(201).json({Message:`Text file ${FileName}.txt created successfully `})
+                return response.status(201).json({ Message: `Text file ${FileName}.txt created successfully ` })
             })
-    
-            
+
+
         }
-     }catch(err){
+    } catch (err) {
         console.error(err);
-        return response.status(404).json({Message:"Text file exist"})
-     }
+        return response.status(404).json({ Message: "Text file exist" })
+    }
 })
 
 
 //endpoint to filter and get text files
-app.get('/',(request,response)=>{
+app.get('/', (request, response) => {
 
-    const textFileFolder=[];
-    const files=fs.readdirSync('./FileFolder');
-    files.forEach(file=>{
-        if(path.extname(file)=='.txt'){
+    const textFileFolder = [];
+    const files = fs.readdirSync('./FileFolder');
+    files.forEach(file => {
+        if (path.extname(file) == '.txt') {
             textFileFolder.push(file);
         }
     })
 
-response.status(200).send(textFileFolder);
+    response.status(200).send(textFileFolder);
 
 })
 
 //Server for listen
-const PORT=3001;
-app.listen(PORT,()=>{
+const PORT = 3001;
+app.listen(PORT, () => {
     console.log("Server running")
 });

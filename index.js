@@ -55,7 +55,7 @@ app.post('/create', (request, response) => {
 
 
 //endpoint to filter and get text files
-app.get('/get', (request, response) => {
+app.get('/', (request, response) => {
 
     const textFileFolder = [];
     const files = fs.readdirSync('./FileFolder');

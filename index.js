@@ -2,20 +2,14 @@
 //Modules
 
 const fs = require('fs');
-
 const express = require('express');
-
 const app = express();
-
 const cors = require('cors');
-
 const path = require('path');
 
 app.use(cors())
-
 app.use(express.json());
 
-const { request } = require('http');
 
 
 //endpoint to create a text files
@@ -44,8 +38,6 @@ app.post('/create', (request, response) => {
                 }
                 return response.status(201).json({ Message: `Text file ${FileName}.txt created successfully ` })
             })
-
-
         }
     } catch (err) {
         console.error(err);
@@ -64,9 +56,7 @@ app.get('/', (request, response) => {
             textFileFolder.push(file);
         }
     })
-
     response.status(200).send(textFileFolder);
-
 })
 
 //Server for listen
